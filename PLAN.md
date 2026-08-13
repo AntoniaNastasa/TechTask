@@ -39,3 +39,18 @@ Attacking the Validator and it blocking the requests sent if not valid
 I will use one public dataset that is small enough to load into the browser, it should have multiple types of data (dates, numeric, text), clear semantics that can be documented
 The LLM will be instructed to return structured output containing SQL
 The prompt will explicitly state that it must only generate read-only SQL and must only use the supplied schema
+
+## Changes from this plan + Steps Taken
+
+Choose and download dataset NYC Yellow Taxi January 2025
+Create the snippets using the PDF file "Data Dictionary – Yellow Taxi Trip Records"
+Create the frontend component using React (this includes the React page and the DuckDB files)
+Test DuckDB on the frontend by displaying the number of trips (useTripsCount)
+Test the Worker by creating a example_request_1.json file and running  curl.exe -X POST http://127.0.0.1:8787 -H "Content-Type: application/json" --data @scripts/example_request_1.json
+Create a python script ground_truth.py to get the real values in the dataset
+
+
+## Improvements
+
+Look into the DuckDB parser and update the validator based on that (also look into making the DB read-only)
+Add more snippets and make the Worker select the most relevant ones
