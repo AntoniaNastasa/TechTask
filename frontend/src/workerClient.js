@@ -1,5 +1,5 @@
-const WORKER_URL = import.meta.env.VITE_WORKER_URL ?? "http://127.0.0.1:8787";
-
+//const WORKER_URL = import.meta.env.VITE_WORKER_URL ?? "http://127.0.0.1:8787";
+const WORKER_URL = "http://127.0.0.1:8787";
 
 //POST to the workers URL
 export async function askQuestion(question, schemaText, snippets) {

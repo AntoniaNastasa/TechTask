@@ -10,6 +10,7 @@ Rules:
 - Respond with ONLY valid JSON, no markdown, no code fences, in this exact shape:
 {"sql": "SELECT ...", "rationale": "one sentence explaining the approach"}`;
 
+//provide question + schema +snippets
 function buildUserPrompt(question, schemaText, snippets) {
   const snippetBlock = snippets.length
     ? `Relevant notes:\n${snippets.join('\n')}\n\n`
@@ -23,10 +24,15 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
+
+//the responses are fetchable from different origins (localhost:5174 > localhost:8787)
 function json(data, status = 200) {
   return Response.json(data, { status, headers: CORS_HEADERS });
 }
 
+
+//workers AI response is different depending on the model chosen
+//this normalises it to text
 function extractResponseText(aiResponse) {
   const res = aiResponse;
 
@@ -45,6 +51,8 @@ function extractResponseText(aiResponse) {
   return res;
 }
 
+
+//handler: calls env.AI and returns the sql + rationale
 export default {
   async fetch(request, env) {
     if (request.method === "OPTIONS") {

@@ -1,9 +1,12 @@
 export const DATASET_SNIPPETS = [
   "The table is called 'trips' and contains NYC Yellow Taxi trip records from January 2025.",
+  "VendorID is code indicating the provider: 1=Creative Mobile Technologies, 2=Curb Mobility, 6=Myle Technologies, 7=Helix",
   "tpep_pickup_datetime and tpep_dropoff_datetime are the trip start and end timestamps, stored as TIMESTAMP.",
   "trip_distance is measured in miles.",
   "fare_amount is the base metered fare in USD, before tips and surcharges.",
   "extra is Miscellaneous extras and surcharges.",
+  "store_and_fwd_flag  indicates whether the trip record was held in vehicle memory before sending to the vendo: Y= store and forward trip, N=not a store and forward trip",
+  "airport_fee is only for pick up at LaGuardia and John F. Kennedy Airports",
   "tip_amount is only populated for credit card payments; cash tips are not recorded and appear as 0.",
   "total_amount is the sum of all charges, does not include cash tips: fare_amount + extra + mta_tax + tip_amount + tolls_amount + improvement_surcharge + congestion_surcharge.",
   "payment_type is an integer code: 0= Flex Fare trip, 1 = Credit card, 2 = Cash, 3 = No charge, 4 = Dispute, 5 = Unknown, 6 = Voided trip.",

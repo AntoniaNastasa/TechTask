@@ -14,6 +14,7 @@ export function useTripsCount() {
     async function load() {
       try {
         const { rows } = await runQuery("SELECT COUNT(*) AS count FROM trips");
+        //stops from calling on a component that doesnt exist no more
         if (!cancelled) setCount(Number(rows[0].count));
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : String(e));
@@ -23,6 +24,8 @@ export function useTripsCount() {
     }
 
     load();
+
+    //cleanup for when the component unmounts
     return () => {
       cancelled = true;
     };

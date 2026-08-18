@@ -189,6 +189,11 @@ CORRECTLY ALLOWED (false-positive check):
   - A semicolon that appears inside a string literal or is built via
     CONCAT(), rather than as a real statement separator — confirmed the
     validator doesn't misfire on this.
+
+    SELECT CONCAT(PULocationID, '; ', DOLocationID) AS route_id FROM trips LIMIT 10;
+
+    SELECT 'Select Ave; Queens' AS test_location FROM trips LIMIT 1;
+
   - SELECT 1; -- trailing comment after the one real statement.
 
 NOT CAUGHT: 
