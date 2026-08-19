@@ -265,3 +265,6 @@ NOT CAUGHT:
 
 4. If initDb() fails, dbPromise will be a rejected promise. The singleton does not currently 
    present re-try logic (the only fix would be to refresh the whole page).
+
+
+5. The AI Model is hard-coded, if we want to change it we need to actually change the business logic.
