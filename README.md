@@ -28,6 +28,11 @@ npm install
 `VITE_WORKER_URL`,`frontend/.env` (not committed): Tells the frontend where the Worker is running
 Check the terminal output from wrangler dev: if it's not 8787, create frontend/.env with VITE_WORKER_URL=<that URL> before starting the frontend
 
+`VITE_WORKER_URL`, `frontend/.env.production` (committed): Holds the deployed
+Worker's URL (`https://worker.nastasantonia1910.workers.dev`). Picked up
+automatically by `vite build` / `npm run preview` — `npm run dev` never reads
+this file, only `frontend/.env`.
+
 **Model ID** 
 (hardcoded in `worker/src/index.js`): `@cf/zai-org/glm-4.7-flash`
 
@@ -50,6 +55,26 @@ npm run dev
 Open the printed frontend URL in a browser. You should see "Dataset loaded:
 3,475,226 trips" once DuckDB-WASM finishes loading the Parquet file, that's
 the first sign everything is wired up correctly.
+
+
+**Running against the deployed Worker (production):**
+
+The Worker is already deployed. To (re)deploy it after making changes:
+```
+cd worker
+npm run deploy      # or: npx wrangler deploy
+```
+Wrangler prints the live URL — if it changes (e.g. Worker renamed), update
+`frontend/.env.production` to match.
+
+To run the frontend against that deployed Worker instead of a local one:
+```
+cd frontend
+npm run build
+npm run preview
+```
+`vite build` reads `frontend/.env.production` automatically, so no local
+Worker needs to be running for this.
 
 
 ## Testing it as a reviewer

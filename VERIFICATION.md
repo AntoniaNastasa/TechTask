@@ -261,3 +261,7 @@ NOT CAUGHT:
    columns contain known-bad rows, so there's no mechanism by which the
    generated SQL would ever filter them out unless a question happens to
    ask for it explicitly.
+
+
+4. If initDb() fails, dbPromise will be a rejected promise. The singleton does not currently 
+   present re-try logic (the only fix would be to refresh the whole page).
