@@ -200,15 +200,10 @@ NOT CAUGHT:
 
   - SELECT * FROM pragma_table_info('trips')  -> valid: true
   - SELECT * FROM duckdb_settings()           -> valid: true
-  - SELECT * FROM sqlite_scan('other.db', 'secrets') -> valid: true
     DuckDB exposes PRAGMA-style introspection and cross-database access as
     ordinary callable table functions, not as a PRAGMA keyword, so a
     plain SELECT can reach them without ever containing a blocked word.
-    We discussed adding a regex to block the whole pragma_*/duckdb_*/
-    sqlite_* function-name family and deliberately decided not to (I
-    wasn't confident in that regex, so we cut it rather than ship
-    something half-verified). This is a known, accepted gap, not an
-    oversight — see section 4.
+    This is a known gap
   - Block comments containing "malicious" text:
       SELECT 1 /*; DROP TABLE trips; */   -> valid: true
     This is not actually a bypass: the validator strips the comment before

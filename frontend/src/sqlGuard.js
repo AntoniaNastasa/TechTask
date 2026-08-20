@@ -31,6 +31,14 @@ const FORBIDDEN_SUBSTRINGS = [
   "glob(", "sniff_csv",
 ];
 
+// SECURITY: the checks above are a denylist of specific
+// keywords/substrings, so anything not explicitly listed is implicitly allowed.
+// A more robust replacement would allowlist the query SHAPE instead: after
+// every FROM/JOIN keyword, require the relation to be exactly the literal name
+// `trips`, rejecting anything else. That blocks every current and future duckdb_*/pragma_*
+// introspection function and every scan-type table function in one rule, without
+// needing to know their names in advance
+
 function stripStringLiterals(sql) {
   // Standard SQL escapes a quote inside a string by doubling it: 'it''s'.
   // Replace whole literals with a placeholder so keywords/semicolons INSIDE

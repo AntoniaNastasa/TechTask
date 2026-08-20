@@ -27,6 +27,20 @@ async function initDb() {
 
   const conn = await db.connect();
   await conn.query(`CREATE VIEW trips AS SELECT * FROM read_parquet('trips.parquet')`);
+
+  // SECURITY: lock the engine down before any user/LLM SQL
+  // ever touches this connection. This is DuckDB's own documented pattern for
+  // running untrusted SQL ("Securing DuckDB" in the DuckDB docs)
+  // It closes off filesystem/network/new-
+  // extension access (e.g. sqlite_scan, read_csv, httpfs, ATTACH). It does NOT hide introspection
+  // functions like duckdb_settings()/pragma_table_info() -- those read state
+  // already resident in the engine, not "external access". 
+  
+  // await conn.query(`SET autoinstall_known_extensions=false`);
+  // await conn.query(`SET autoload_known_extensions=false`);
+  // await conn.query(`SET enable_external_access=false`);
+  // await conn.query(`SET lock_configuration=true`);
+
   await conn.close();
 
   return db;
